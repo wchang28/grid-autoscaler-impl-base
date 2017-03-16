@@ -1,0 +1,24 @@
+{
+  "name": "grid-autoscaler-impl-base",
+  "version": "0.0.1",
+  "description": "Grid Autoscaler Implementation Base Class",
+  "main": "./js/index.js",
+  "typings": "./js/index.d.ts",
+  "scripts": {},
+  "keywords": [
+    "Grid",
+    "Auto-Scaler"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wchang28/grid-autoscaler-impl-base.git"
+  },
+  "author": "Wen Chang",
+  "license": "MIT",
+  "dependencies": {
+    "@types/es6-promise": "0.0.32",
+    "@types/node": "^6.0.42",
+    "autoscalable-grid": "git+https://github.com/wchang28/autoscalable-grid.git",
+	"lodash": "^4.17.4"
+  }
+}
