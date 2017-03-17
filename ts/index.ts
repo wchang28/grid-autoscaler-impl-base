@@ -65,3 +65,8 @@ export class ImplementationBase extends events.EventEmitter {
         return Promise.resolve<AutoScalerImplementationInfo>(this.Info);
     }
 }
+
+export interface ImplementationSetup {
+    getCPUsPerInstance: () => Promise<number>;
+    setCPUsPerInstance: (value: number) => Promise<number>;
+}
