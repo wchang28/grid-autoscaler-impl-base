@@ -5,28 +5,29 @@ import * as _ from 'lodash';
 export type ConvertToWorkerKeyProc = (worker: IWorker) => WorkerKey;
 
 export interface Options {
-    Info?: AutoScalerImplementationInfo
     CPUsPerInstance?: number;
 }
 
+let defaultInfo: AutoScalerImplementationInfo = {
+    Name: "(Implementation)"
+    ,HasSetupUI: false
+}
+
 let defaultOptions: Options = {
-    Info:
-    {
-        Name: "(Implementation)"
-        ,HasSetupUI: false
-    }
-    ,CPUsPerInstance: 1
+    CPUsPerInstance: 1
 }
 
 export class ImplementationBase extends events.EventEmitter {
     private __Info: AutoScalerImplementationInfo;
     private __CPUsPerInstance: number;
     public static MIN_CPUS_PER_INSTANCE = 1;
-    constructor(private workerToKey: ConvertToWorkerKeyProc, options?: Options) {
+    constructor(info: AutoScalerImplementationInfo, private workerToKey: ConvertToWorkerKeyProc, options?: Options) {
         super();
         options = options || defaultOptions;
         options = _.assignIn({}, defaultOptions, options);
-        this.__Info = options.Info;
+        info = info || defaultInfo
+        info = _.assignIn({}, defaultInfo, info);
+        this.__Info = info;
         this.__CPUsPerInstance = Math.round(this.boundValue(options.CPUsPerInstance, ImplementationBase.MIN_CPUS_PER_INSTANCE));
     }
     // set min/max bound on value

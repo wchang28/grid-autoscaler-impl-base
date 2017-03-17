@@ -4,7 +4,6 @@ import { WorkerKey, IWorkersLaunchRequest, IWorker, IAutoScalableState, AutoScal
 import * as events from "events";
 export declare type ConvertToWorkerKeyProc = (worker: IWorker) => WorkerKey;
 export interface Options {
-    Info?: AutoScalerImplementationInfo;
     CPUsPerInstance?: number;
 }
 export declare class ImplementationBase extends events.EventEmitter {
@@ -12,7 +11,7 @@ export declare class ImplementationBase extends events.EventEmitter {
     private __Info;
     private __CPUsPerInstance;
     static MIN_CPUS_PER_INSTANCE: number;
-    constructor(workerToKey: ConvertToWorkerKeyProc, options?: Options);
+    constructor(info: AutoScalerImplementationInfo, workerToKey: ConvertToWorkerKeyProc, options?: Options);
     protected boundValue(value: number, min: number, max?: number): number;
     CPUsPerInstance: number;
     readonly Info: AutoScalerImplementationInfo;

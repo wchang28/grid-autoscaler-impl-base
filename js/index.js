@@ -6,21 +6,23 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var events = require("events");
 var _ = require("lodash");
+var defaultInfo = {
+    Name: "(Implementation)",
+    HasSetupUI: false
+};
 var defaultOptions = {
-    Info: {
-        Name: "(Implementation)",
-        HasSetupUI: false
-    },
     CPUsPerInstance: 1
 };
 var ImplementationBase = (function (_super) {
     __extends(ImplementationBase, _super);
-    function ImplementationBase(workerToKey, options) {
+    function ImplementationBase(info, workerToKey, options) {
         var _this = _super.call(this) || this;
         _this.workerToKey = workerToKey;
         options = options || defaultOptions;
         options = _.assignIn({}, defaultOptions, options);
-        _this.__Info = options.Info;
+        info = info || defaultInfo;
+        info = _.assignIn({}, defaultInfo, info);
+        _this.__Info = info;
         _this.__CPUsPerInstance = Math.round(_this.boundValue(options.CPUsPerInstance, ImplementationBase.MIN_CPUS_PER_INSTANCE));
         return _this;
     }
