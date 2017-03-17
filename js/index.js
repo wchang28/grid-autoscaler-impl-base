@@ -7,7 +7,10 @@ var __extends = (this && this.__extends) || function (d, b) {
 var events = require("events");
 var _ = require("lodash");
 var defaultOptions = {
-    Name: "(Implementation)",
+    Info: {
+        Name: "(Implementation)",
+        HasSetupUI: false
+    },
     CPUsPerInstance: 1
 };
 var ImplementationBase = (function (_super) {
@@ -17,7 +20,7 @@ var ImplementationBase = (function (_super) {
         _this.workerToKey = workerToKey;
         options = options || defaultOptions;
         options = _.assignIn({}, defaultOptions, options);
-        _this.__Name = options.Name;
+        _this.__Info = options.Info;
         _this.__CPUsPerInstance = Math.round(_this.boundValue(options.CPUsPerInstance, ImplementationBase.MIN_CPUS_PER_INSTANCE));
         return _this;
     }
@@ -40,8 +43,8 @@ var ImplementationBase = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(ImplementationBase.prototype, "Name", {
-        get: function () { return this.__Name; },
+    Object.defineProperty(ImplementationBase.prototype, "Info", {
+        get: function () { return this.__Info; },
         enumerable: true,
         configurable: true
     });
@@ -59,7 +62,7 @@ var ImplementationBase = (function (_super) {
         return Promise.resolve({ NumInstances: NumInstances });
     };
     ImplementationBase.prototype.getInfo = function () {
-        return Promise.resolve({ Name: this.Name });
+        return Promise.resolve(this.Info);
     };
     return ImplementationBase;
 }(events.EventEmitter));

@@ -5,24 +5,28 @@ import * as _ from 'lodash';
 export type ConvertToWorkerKeyProc = (worker: IWorker) => WorkerKey;
 
 export interface Options {
-    Name?: string;
+    Info?: AutoScalerImplementationInfo
     CPUsPerInstance?: number;
 }
 
 let defaultOptions: Options = {
-    Name: "(Implementation)"
+    Info:
+    {
+        Name: "(Implementation)"
+        ,HasSetupUI: false
+    }
     ,CPUsPerInstance: 1
 }
 
 export class ImplementationBase extends events.EventEmitter {
-    private __Name: string;
+    private __Info: AutoScalerImplementationInfo;
     private __CPUsPerInstance: number;
     public static MIN_CPUS_PER_INSTANCE = 1;
     constructor(private workerToKey: ConvertToWorkerKeyProc, options?: Options) {
         super();
         options = options || defaultOptions;
         options = _.assignIn({}, defaultOptions, options);
-        this.__Name = options.Name;
+        this.__Info = options.Info;
         this.__CPUsPerInstance = Math.round(this.boundValue(options.CPUsPerInstance, ImplementationBase.MIN_CPUS_PER_INSTANCE));
     }
     // set min/max bound on value
@@ -41,7 +45,7 @@ export class ImplementationBase extends events.EventEmitter {
             }
         }
     }
-    get Name() : string {return this.__Name;}
+    get Info() : AutoScalerImplementationInfo {return this.__Info;}
 
     TranslateToWorkerKeys(workers: IWorker[]): Promise<WorkerKey[]> {
         let workerKeys: WorkerKey[] = []; 
@@ -57,6 +61,6 @@ export class ImplementationBase extends events.EventEmitter {
         return Promise.resolve<IWorkersLaunchRequest>({NumInstances});
     }
     getInfo() : Promise<AutoScalerImplementationInfo> {
-        return Promise.resolve<AutoScalerImplementationInfo>({Name: this.Name});
+        return Promise.resolve<AutoScalerImplementationInfo>(this.Info);
     }
 }
