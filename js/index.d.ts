@@ -19,7 +19,7 @@ export declare class ImplementationBase extends events.EventEmitter {
     EstimateWorkersLaunchRequest(state: IAutoScalableState): Promise<IWorkersLaunchRequest>;
     getInfo(): Promise<AutoScalerImplementationInfo>;
 }
-export interface ImplementationSetup {
+export interface IImplementationSetupBase {
     getCPUsPerInstance: () => Promise<number>;
     setCPUsPerInstance: (value: number) => Promise<number>;
 }

@@ -66,7 +66,7 @@ export class ImplementationBase extends events.EventEmitter {
     }
 }
 
-export interface ImplementationSetup {
+export interface IImplementationSetupBase {
     getCPUsPerInstance: () => Promise<number>;
     setCPUsPerInstance: (value: number) => Promise<number>;
 }
