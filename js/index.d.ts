@@ -1,5 +1,4 @@
 /// <reference types="node" />
-/// <reference types="es6-promise" />
 import { WorkerKey, IWorkersLaunchRequest, IWorker, IAutoScalableState, AutoScalerImplementationInfo } from 'autoscalable-grid';
 import * as events from "events";
 export declare type ConvertToWorkerKeyProc = (worker: IWorker) => WorkerKey;
